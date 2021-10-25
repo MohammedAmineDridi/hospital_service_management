@@ -1,0 +1,85 @@
+
+<body>
+  <div class="wrapper">
+      <div class="sidebar" data-image="../assets/img/sidebar-5.jpg">
+          <!--
+      Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
+
+      Tip 2: you can also add an image using data-image tag
+  -->
+          <div class="sidebar-wrapper">
+              <div class="logo">
+                  <a class="simple-text">
+                      Hospital Management
+                  </a>
+              </div>
+              <ul class="nav">
+                  
+                  <li class={{class_dash}}>
+                      <a id="dash" #in1 (click)="test_active(in1.id)" class="nav-link" routerLink="/dashboard">
+                          <i class="nc-icon nc-chart-pie-35"></i>
+                          <p>Dashboard</p>
+                      </a>
+                  </li>
+
+                  <li class="{{ class_patient }}">
+                      <a id="patient" #in2 (click)="test_active(in2.id)" class="nav-link" routerLink="/patients">
+                          <i class="nc-icon nc-circle-09"></i>
+                          <p>Patient Management</p>
+                      </a>
+                  </li>
+
+                  <li class="{{ class_service }}">
+                      <a  id="service" #in3 (click)="test_active(in3.id)"  class="nav-link" routerLink="/services">
+                          <i class="nc-icon nc-notes"></i>
+                          <p>Service Management</p>
+                      </a>
+                  </li>
+                  
+                 
+                  
+              </ul>
+          </div>
+      </div>
+      <div class="main-panel">
+          <!-- Navbar -->
+          <nav class="navbar navbar-expand-lg " color-on-scroll="500">
+              <div class="container-fluid">
+                  
+                  <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                      <ul class="nav navbar-nav mr-auto">
+                          
+                          <li class="dropdown nav-item">
+                              <a id="icon_notif" href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                  <i class="nc-icon nc-alien-33"></i>
+                                  <span class="notification">{{  number_tasks_not_done }}</span>
+                                  <span class="d-lg-none">Notifications</span>
+                              </a>
+                              <ul class="dropdown-menu">
+
+                                  <a *ngFor="let task_not_done of tasks_not_done" class="dropdown-item" routerLink="/tasks/{{task_not_done.id}}" >{{ task_not_done.description }} / patient {{ task_not_done.patient_id }}</a>       
+                              </ul>
+                          </li>
+                         
+                      </ul>
+
+                      <ul class="navbar-nav ml-auto">
+                      <div id="a">
+                        <p style="float: left;"> you have 2 minutes to do your tasks : </p> &nbsp;&nbsp;&nbsp;&nbsp; <countdown style="float: right;color: red;" #cd [config]="{ leftTime: 120, notify: [2, 5] }" (event)="counter($event)"></countdown>
+                    </div>
+                        
+                     </ul>
+
+
+                  </div>
+              </div>
+          </nav>
+          <!-- End Navbar -->
+          <div class="content">
+              <router-outlet>
+  
+              </router-outlet>
+          </div>
+          
+      </div>
+  </div>

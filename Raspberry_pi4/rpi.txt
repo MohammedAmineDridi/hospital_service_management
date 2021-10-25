@@ -1,0 +1,111 @@
+------------------- BUZZER.PY ---------------------
+
+# Import required libraries
+import sys
+import RPi.GPIO as GPIO
+import time
+
+# Set trigger PIN according with your cabling
+triggerPIN = 14
+
+# Set PIN to output
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(triggerPIN,GPIO.OUT)
+
+# define PWM signal and start it on trigger PIN
+buzzer = GPIO.PWM(triggerPIN, 1900) # Set frequency to 1 Khz
+buzzer.start(10) # Set dutycycle to 10
+
+# this row makes buzzer work for 1 second, then
+# cleanup will free PINS and exit will terminate code execution
+time.sleep(1)
+
+GPIO.cleanup()
+sys.exit()
+
+# Please find below some addictional commands to change frequency and
+# dutycycle without stopping buzzer, or to stop buzzer:
+#
+# buzzer.ChangeDutyCycle(10)
+# buzzer.ChangeFrequency(1000)
+# buzzer.stop()
+
+
+---------------------------- tasks.PY ----------------------------------
+
+
+
+from time import sleep
+import requests
+import os
+
+r = requests.get('http://192.168.137.1:3000/api/number_service_done')
+print("number of tasks done = " + str(r.content.decode("utf-8") ) )
+
+
+s = requests.get('http://192.168.137.1:3000/api/number_service_not_done')
+print("number of tasks not done = " + str(s.content.decode("utf-8") ) )
+
+
+if ( str(s.content.decode("utf-8") ) == "0" ):
+        print("number of tasks not done ===  0")
+        sleep(1)
+else :
+        print("number of tasks > 0 ")
+	# buzzer = 1 .
+        command ='python buzzer.py'
+        os.system(command)	
+	# led = 1
+	command_led = 'python led.py'
+	os.system(command_led)
+	
+
+
+
+------------------------- SCRIPT.SH -----------------------------------
+
+
+
+#!/bin/bash
+
+while true
+do
+   python tasks.py
+   sleep 1
+done
+
+
+
+---------- LED.PY ---------
+
+import RPi.GPIO as GPIO
+import time
+LED_PIN = 17
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(LED_PIN, GPIO.OUT)
+try:
+    while True:
+        GPIO.output(LED_PIN, GPIO.HIGH)
+        time.sleep(1)
+        GPIO.output(LED_PIN, GPIO.LOW)
+        time.sleep(1)
+	quit()
+GPIO.cleanup() 
+quit()
+
+----------------------------
+
+
+
+sudo apt-get install rpi.gpio    ==> install GPIO lib .
+
+
+sudo apt-get update
+sudo apt-get install python-requests    ==> install HTTP requests lib .
+
+
+
+
+
+
+

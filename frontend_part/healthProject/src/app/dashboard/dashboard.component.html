@@ -1,0 +1,135 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- 1 -->
+        <div class="col-md-4">
+            <div class="card ">
+                <div class="card-header ">
+                    <h4 class="card-title">Number of patients</h4>
+                </div>
+                <div class="card-body ">
+                    <div id="dash1">
+                        <i class="bi bi-person" style="float: left;font-size: 40px;"></i>
+                        &nbsp;&nbsp;&nbsp;&nbsp; <h1 style="float: right;font-size: 40px;margin-top: 10px;"> {{ number_of_patients }} </h1>
+                    </div>
+                    
+                    <hr>
+                    <div class="stats">
+                        <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 2 -->
+        <div class="col-md-4">
+            <div class="card ">
+                <div class="card-header ">
+                    <div id="card1">  <h4 class="card-title" style="float: left">Number of tasks  </h4>  &nbsp;&nbsp;  <h4 style="float: right;color: #7CFC00;" class="card-title"> Done </h4> </div>
+                   
+                </div>
+                <div class="card-body ">
+                   
+                    <div id="dash2">
+                        <i class="bi bi-card-list" style="float: left;font-size: 40px;"></i>
+                        &nbsp;&nbsp;&nbsp;&nbsp; <h1 style="float: right;font-size: 40px;margin-top: 10px;"> {{ number_tasks_done }} </h1>
+                    </div>
+                    
+                    <hr>
+                    <div class="stats">
+                        <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 3 -->
+        <div class="col-md-4">
+            <div class="card ">
+                <div class="card-header ">
+                    <div id="card2">  <h4 class="card-title" style="float: left">Number of tasks  </h4>  &nbsp;&nbsp;  <h4 style="float: right;color: red;" class="card-title"> Not Done </h4> </div>
+                  
+                </div>
+                <div class="card-body ">
+                    <div id="dash2">
+                        <i class="bi bi-card-list" style="float: left;font-size: 40px;"></i>
+                        &nbsp;&nbsp;&nbsp;&nbsp; <h1 style="float: right;font-size: 40px;margin-top: 10px;"> {{ number_tasks_not_done  }} </h1>
+                    </div>
+                    
+                    <hr>
+                    <div class="stats">
+                        <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <div class="row">
+   
+            <div class="card ">
+                <div class="card-header " style="display: inline-block;">
+                    <h4 class="card-title" style="float: left;"> Choose Date of Services  </h4>
+                    &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    
+
+                    <form #f="ngForm" style="float: right;" method="POST" >
+                    <input style="float: right;" type="date"  name="date_picker"
+                    (ngModelChange)="date_func(f)" value="2021-01-01" ngModel required  >
+                    </form>
+
+
+                </div>
+                <div class="card-body ">
+                 <!-- bar char vertical-->
+
+                 <ngx-charts-bar-vertical 
+    [view]="[1000,400]"
+    [results]="saleData"
+    [xAxisLabel]="'Products'"
+    [legendTitle]="'Product Sale Chart'"
+    [yAxisLabel]="'Sale'"
+    [legend]="true"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    [xAxis]="true"
+    [yAxis]="true"
+    [gradient]="true">
+                </ngx-charts-bar-vertical>
+
+                 <!-- end bar char vertical-->
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 2 --> <!-- pie chart test-->
+        
+
+
+        <div class="row">
+   
+            <div class="card ">
+                <div class="card-header ">
+                    <h4 class="card-title"> Pie chart of Services and Dates  </h4>
+                </div>
+                <div class="card-body ">
+                 <!-- pie char -->
+
+                 <ngx-charts-pie-chart 
+    [results]="saleData"
+    [legend]="true"
+    [legendTitle]="'Product Sale Report'" 
+    [view]="[1000,300]"
+    [labels]="true" >
+                </ngx-charts-pie-chart>
+              
+                 <!-- end pie chart-->
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
